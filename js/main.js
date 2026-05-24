@@ -43,7 +43,6 @@ function initRoundSlider() {
     const slider = document.getElementById("round-slider");
     const value = document.getElementById("round-value");
 
-    value.textContent = currentRound;
 
     slider.addEventListener("input", () => {
         currentRound = Number(slider.value);
