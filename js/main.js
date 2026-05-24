@@ -51,17 +51,28 @@ function initRoundSlider() {
     });
 }
 
+function getSeasonData() {
+    return globalData.filter(d => d.season === currentSeason);
+}
+
+function getRoundData() {
+    return globalData.filter(d => 
+        d.season === currentSeason &&
+        Number(d.Round) === currentRound
+    );
+}
+
 function updateVisualizations() {
-    const filtered = globalData.filter(d => d.season === currentSeason);
+    const seasonData = getSeasonData();
 
     updateBarChart();
-    drawLineChart(filtered);
-    drawScatterPlot(filtered);
-    drawDonutChart(filtered);
-    drawSpiderChart(filtered);
+    drawLineChart(seasonData);
+    drawScatterPlot(seasonData);
+    drawDonutChart(seasonData);
+    drawSpiderChart(seasonData);
 }
 
 function updateBarChart() {
-    const filtered  = globalData.filter(d => d.season === currentSeason);
-    drawBarChart(filtered, currentRound);
+    const roundData = getRoundData();
+    drawBarChart(roundData, currentRound);
 }
