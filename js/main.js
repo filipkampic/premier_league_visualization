@@ -31,7 +31,8 @@ function initSeasonSelect() {
         select.appendChild(option);
     });
 
-    currentSeason = seasons[0];
+    currentSeason = seasons[seasons.length - 1];
+    select.value = currentSeason;
     updateSliderMax();
 
     select.addEventListener("change", () => {

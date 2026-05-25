@@ -3,7 +3,7 @@ export const teamColors = {
     "Liverpool": "#C8102E",
     "Arsenal": "#EF0107",
     "Chelsea": "#034694",
-    "Man United": "#DA020E",
+    "Man United": "#DA291C",
     "Tottenham": "#132257",
     "Everton": "#003399",
     "Leicester": "#003090",

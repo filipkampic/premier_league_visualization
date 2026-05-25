@@ -9,28 +9,44 @@
 </head>
 <body>
     <header>
-        <h1>Premier League - Data Visualization</h1>
+        <div class="header-badge">PL</div>
+        <div class="header-text">
+            <span class="header-title">Premier League</span>
+            <span class="header-sub">Data Visualization</span>
+        </div>
     </header>
 
     <main>
         <div id="controls">
             <label for="season-select">Season:</label>
             <select id="season-select"></select>
-
-      
         </div>
 
         <section id="bar-chart">
+            <h2>League Standings by Gameweek</h2>
             <div class="bar-controls">
                 <label for="round-slider">Round:</label>
                 <input type="range" id="round-slider" min="1" max="38" value="1">
                 <span id="round-value">1</span>
             </div>
         </section>
-        <section id="line-chart"></section>
-        <section id="scatter-chart"></section>
-        <section id="donut-chart"></section>
-        <section id="spider-chart"></section>
+
+        <section id="line-chart">
+            <h2>Points Trajectory</h2>
+        </section>
+
+        <section id="scatter-chart">
+            <h2>Attack vs. Defense (GF/GA)</h2>
+        </section>
+
+        <section id="donut-chart">
+            <h2>Match Outcomes (W/D/L)</h2>
+        </section>
+
+        <section id="spider-chart">
+            <h2>Team Profile</h2>
+        </section>
+
     </main>
 
     <script type="module" src="js/main.js"></script>
