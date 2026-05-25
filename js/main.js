@@ -1,3 +1,4 @@
+import { assignRounds } from "./utils/rounds.js";
 import { drawBarChart } from "./charts/bar.js";
 import { drawLineChart } from "./charts/line.js";
 import { drawScatterPlot } from "./charts/scatter.js";
@@ -9,7 +10,7 @@ let currentSeason = null;
 let currentRound = 1;
 
 d3.csv("data/combined.csv").then(data => {
-    globalData = data;
+    globalData = assignRounds(data);
 
     console.log("Loaded data:", globalData);
 
@@ -21,7 +22,6 @@ d3.csv("data/combined.csv").then(data => {
 
 function initSeasonSelect() {
     const select = document.getElementById("season-select");
-
     const seasons = [...new Set(globalData.map(d => d.season))];
 
     seasons.forEach(season => {
@@ -32,9 +32,11 @@ function initSeasonSelect() {
     });
 
     currentSeason = seasons[0];
+    updateSliderMax();
 
     select.addEventListener("change", () => {
         currentSeason = select.value;
+        updateSliderMax();
         updateVisualizations();
     })
 }
@@ -51,15 +53,18 @@ function initRoundSlider() {
     });
 }
 
-function getSeasonData() {
-    return globalData.filter(d => d.season === currentSeason);
+function updateSliderMax() {
+    const seasonData = getSeasonData();
+    const maxRound = d3.max(seasonData, d => d.Round);
+    const slider = document.getElementById("round-slider");
+    slider.max = maxRound;
+    slider.value = maxRound;
+    currentRound = maxRound;
+    document.getElementById("round-value").textContent = currentRound;
 }
 
-function getRoundData() {
-    return globalData.filter(d => 
-        d.season === currentSeason &&
-        Number(d.Round) === currentRound
-    );
+function getSeasonData() {
+    return globalData.filter(d => d.season === currentSeason);
 }
 
 function updateVisualizations() {
@@ -73,6 +78,8 @@ function updateVisualizations() {
 }
 
 function updateBarChart() {
-    const roundData = getRoundData();
-    drawBarChart(roundData, currentRound);
+    const seasonData = getSeasonData();
+    const dataUpToRound = seasonData.filter(d => d.Round <= currentRound);
+
+    drawBarChart(dataUpToRound, currentRound, seasonData);
 }

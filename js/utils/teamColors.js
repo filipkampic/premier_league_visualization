@@ -1,0 +1,42 @@
+export const teamColors = {
+    "Man City": "#6CABDD",
+    "Liverpool": "#C8102E",
+    "Arsenal": "#EF0107",
+    "Chelsea": "#034694",
+    "Man United": "#DA020E",
+    "Tottenham": "#132257",
+    "Everton": "#003399",
+    "Leicester": "#003090",
+    "West Ham": "#7A263A",
+    "Aston Villa": "#95BFE5",
+    "Newcastle": "#241F20",
+    "Wolves": "#FDB913",
+    "Brighton": "#0057B8",
+    "Brentford": "#E30613",
+    "Crystal Palace": "#1B458F",
+    "Fulham": "#CC0000",
+    "Bournemouth": "#DA291C",
+    "Nott'm Forest": "#DD0000",
+    "Southampton": "#D71920",
+    "Leeds": "#FFCD00",
+    "Burnley": "#6C1D45",
+    "Watford": "#FBEE23",
+    "Norwich": "#00A650",
+    "Sheffield United": "#EE2737",
+    "Huddersfield": "#0E63AD",
+    "Swansea": "#121212",
+    "Stoke": "#E03A3E",
+    "West Brom": "#122F67",
+    "Middlesbrough": "#E41B17",
+    "Sunderland": "#EB172B",
+    "Hull": "#F5A12D",
+    "Cardiff": "#0070B5",
+    "Ipswich": "#0044A9",
+    "Luton": "#F78F1E",
+    "Blackburn": "#009EE0",
+    "default": "#999999"
+};
+
+export function getTeamColor(team) {
+    return teamColors[team] || teamColors["default"];
+}
