@@ -163,3 +163,91 @@ svg text {
 .tick text {
     fill: #333333;
 }
+
+/* LINE CHART */
+
+.line-wrapper {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.team-select-panel {
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#line-tooltip {
+    position: absolute;
+    background: var(--color-tooltip-bg);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text);
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: var(--shadow);
+    transition: opacity 0.15s ease-in-out;
+}
+
+#line-chart svg text {
+    fill: var(--text);
+    font-size: 12px;
+}
+
+#line-chart .domain,
+#line-chart .tick line {
+    stroke: var(--color-grid);
+}
+
+.team-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+    background: var(--surface);
+    padding: 8px;
+    gap: 4px;
+    width: 260px;
+}
+
+.team-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: var(--radius);
+}
+
+.team-item:hover {
+    background: var(--hover);
+}
+
+.team-item input {
+    cursor: pointer;
+}
+
+.team-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.team-buttons button {
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.team-buttons button:hover {
+    border-color: var(--accent);
+}
