@@ -251,3 +251,64 @@ svg text {
 .team-buttons button:hover {
     border-color: var(--accent);
 }
+
+/* DONUT CHART */
+
+.donut-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.donut-controls select {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+}
+
+.donut-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.donut-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.donut-team-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.donut-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 12px;
+}
+
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.donut-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
