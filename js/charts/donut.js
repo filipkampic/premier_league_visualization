@@ -1,4 +1,5 @@
 import { getTeamColor } from "../utils/teamColors.js";
+import { getTeamLogo } from "../utils/teamLogos.js";
 
 const width = 400;
 const height = 400;
@@ -113,12 +114,13 @@ export function drawDonutChart(data) {
 
         svg.append("g").attr("class", "slices");
 
-        svg.append("circle")
-            .attr("class", "logo-placeholder")
-            .attr("r", innerRadius * 0.6)
-            .attr("fill", "#f5f5f5")
-            .attr("stroke", "#e0e0e0")
-            .attr("stroke-width", 1);
+        svg.append("image")
+        .attr("class", "donut-logo")
+        .attr("width", innerRadius * 1.1)
+        .attr("height", innerRadius * 1.1)
+        .attr("x", -innerRadius * 0.55)
+        .attr("y", -innerRadius * 0.55)
+        .attr("href", "");
     }
 
     renderDonut(data, currentTeam);
@@ -203,4 +205,7 @@ function renderDonut(data, team) {
             return t => arc(interpolate(t));
         })
         .remove();
+
+    svg.select(".donut-logo")
+        .attr("href", getTeamLogo(team) || "");
 }

@@ -1,4 +1,5 @@
 import { getTeamColor } from "../utils/teamColors.js";
+import { getTeamLogo } from "../utils/teamLogos.js";
 
 const width = 500;
 const height = 500;
@@ -346,6 +347,7 @@ function updateLegend() {
     legend.innerHTML = teams.map((team, idx) => `
         <div class="spider-legend-item">
             <span class="spider-legend-dot" style="background:${SPIDER_COLORS[idx]}"></span>
+            <img src="${getTeamLogo(team) || ''}" width="20" height="20" style="object-fit:contain;">
             <span>${team}</span>
         </div>
     `).join("");

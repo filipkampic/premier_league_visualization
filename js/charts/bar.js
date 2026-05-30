@@ -1,6 +1,7 @@
 import { getTeamColor } from "../utils/teamColors.js";
+import { getTeamLogo } from "../utils/teamLogos.js";
 
-const margin = { top: 20, right: 30, bottom: 20, left: 140 };
+const margin = { top: 20, right: 30, bottom: 20, left: 44 };
 const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -54,15 +55,11 @@ export function drawBarChart(data, round, allSeasonData) {
     const y = d3.scaleBand()
         .domain(chartData.map(d => d.team))
         .range([0, height])
-        .padding(0.2);
+        .padding(0.3);
 
     svg.select(".x-axis")
         .transition().duration(400)
         .call(d3.axisTop(x).ticks(6));
-
-    svg.select(".y-axis")
-        .transition().duration(400)
-        .call(d3.axisLeft(y));
 
     let tooltip = d3.select("#bar-tooltip");
     if (tooltip.empty()) {
@@ -110,6 +107,44 @@ export function drawBarChart(data, round, allSeasonData) {
         .attr("height", y.bandwidth());
 
     bars.exit().remove();
+
+    const logos = svg.selectAll(".bar-logo")
+        .data(chartData, d => d.team);
+
+    logos.enter()
+        .append("image")
+        .attr("class", "bar-logo")
+        .attr("width", 22)
+        .attr("height", 22)
+        .attr("x", -32)
+        .attr("y", d => y(d.team) + y.bandwidth() / 2 - 11)
+        .attr("href", d => getTeamLogo(d.team))
+        .merge(logos)
+        .transition().duration(500)
+        .attr("y", d => y(d.team) + y.bandwidth() / 2 - 12);
+
+    logos.exit().remove();
+
+    const teamLabels = svg.selectAll(".bar-team-label")
+        .data(chartData, d => d.team);
+
+    teamLabels.enter()
+        .append("text")
+        .attr("class", "bar-team-label")
+        .attr("y", d => y(d.team) + y.bandwidth() / 2 + 4)
+        .attr("x", d => Math.max(x(d.points) - 6, 55))
+        .attr("text-anchor", "end")
+        .style("font-size", "12px")
+        .style("fill", "#fff")
+        .style("font-weight", "600")
+        .style("pointer-events", "none")
+        .merge(teamLabels)
+        .transition().duration(500)
+        .attr("y", d => y(d.team) + y.bandwidth() / 2 + 4)
+        .attr("x", d => Math.max(x(d.points) - 6, 55))
+        .text(d => d.team);
+
+    teamLabels.exit().remove();
 
     const labels = svg.selectAll(".bar-label")
         .data(chartData, d => d.team);

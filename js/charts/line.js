@@ -1,6 +1,7 @@
 import { getTeamColor } from "../utils/teamColors.js";
+import { getTeamLogo } from "../utils/teamLogos.js";
 
-const margin = { top: 20, right: 30, bottom: 20, left: 140 };
+const margin = { top: 20, right: 36, bottom: 20, left: 140 };
 const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -76,6 +77,26 @@ export function drawLineChart(data, selectedTeams) {
         .attr("d", team => lineGen(data[team]));
 
     teams.exit().remove();
+
+    const endLogos = svg.selectAll(".team-end-logo")
+        .data(selectedTeams, d => d);
+
+    endLogos.enter()
+        .append("image")
+        .attr("class", "team-end-logo")
+        .attr("width", 20)
+        .attr("height", 20)
+        .attr("href", team => getTeamLogo(team) || "")
+        .attr("cx", team => x(data[team][data[team].length - 1].round))
+        .attr("cy", team => y(data[team][data[team].length - 1].position))
+        .attr("x", team => x(data[team][data[team].length - 1].round) + 4)
+        .attr("y", team => y(data[team][data[team].length - 1].position) - 10)
+        .merge(endLogos)
+        .transition().duration(500)
+        .attr("x", team => x(data[team][data[team].length - 1].round) + 4)
+        .attr("y", team => y(data[team][data[team].length - 1].position) - 10);
+
+    endLogos.exit().remove();   
 
     const points = svg.selectAll(".team-point")
         .data(

@@ -1,4 +1,5 @@
 import { getTeamColor } from "../utils/teamColors.js";
+import { getTeamLogo } from "../utils/teamLogos.js";
 
 const margin = { top: 40, right: 40, bottom: 60, left: 60 };
 const width = 700 - margin.left - margin.right;
@@ -130,27 +131,29 @@ export function drawScatterPlot(data) {
         .attr("stroke-width", 1)
         .attr("stroke-dasharray", "4,4");
 
+    const logoSize = 28;
+
     const dots = svg.selectAll(".dot")
         .data(chartData, d => d.team);
 
     const dotsEnter = dots.enter()
-        .append("circle")
+        .append("image")
         .attr("class", "dot")
-        .attr("r", 7)
-        .attr("cx", d => x(d.gf))
-        .attr("cy", d => y(d.ga))
-        .attr("fill", d => getTeamColor(d.team))
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1.5);
+        .attr("width", logoSize)
+        .attr("height", logoSize)
+        .attr("x", d => x(d.gf) - logoSize / 2)
+        .attr("y", d => y(d.ga) - logoSize / 2)
+        .attr("href", d => getTeamLogo(d.team));
 
     dotsEnter.merge(dots)
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
                 .html(`<strong>${d.team}</strong><br>GF: ${d.gf}<br>GA: ${d.ga}`);
             d3.select(event.currentTarget)
-                .attr("r", 10)
-                .attr("stroke", "#333")
-                .attr("stroke-width", 2);
+                .attr("width", logoSize * 1.4)
+                .attr("height", logoSize * 1.4)
+                .attr("x", d => x(d.gf) - (logoSize * 1.4) / 2)
+                .attr("y", d => y(d.ga) - (logoSize * 1.4) / 2);
         })
         .on("mousemove", (event) => {
             tooltip
@@ -160,14 +163,14 @@ export function drawScatterPlot(data) {
         .on("mouseout", (event, d) => {
             tooltip.style("opacity", 0);
             d3.select(event.currentTarget)
-                .attr("r", 7)
-                .attr("stroke", "#fff")
-                .attr("stroke-width", 1.5);
+                .attr("width", logoSize)
+                .attr("height", logoSize)
+                .attr("x", d => x(d.gf) - logoSize / 2)
+                .attr("y", d => y(d.ga) - logoSize / 2);
         })
         .transition().duration(500)
-        .attr("cx", d => x(d.gf))
-        .attr("cy", d => y(d.ga))
-        .attr("fill", d => getTeamColor(d.team));
+        .attr("x", d => x(d.gf) - logoSize / 2)
+        .attr("y", d => y(d.ga) - logoSize / 2);
 
     dots.exit().remove();
 }
