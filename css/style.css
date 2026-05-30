@@ -312,3 +312,62 @@ svg text {
     border-radius: 50%;
     display: inline-block;
 }
+
+/* SPIDER CHART */
+.spider-selects {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.spider-select-label {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.spider-select {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+}
+
+.spider-select:focus {
+    border-color: var(--accent);
+}
+
+.spider-color-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.spider-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.spider-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.spider-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
