@@ -213,7 +213,7 @@ svg text {
     background: var(--surface);
     padding: 8px;
     gap: 4px;
-    width: 260px;
+    width: 300px;
 }
 
 .team-item {
@@ -223,10 +223,11 @@ svg text {
     cursor: pointer;
     padding: 2px 4px;
     border-radius: var(--radius);
+    transition: opacity 0.2s;
 }
 
 .team-item:hover {
-    background: var(--hover);
+    background: #f5f5f5;
 }
 
 .team-item input {
@@ -250,6 +251,14 @@ svg text {
 
 .team-buttons button:hover {
     border-color: var(--accent);
+}
+
+.team-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
 }
 
 /* DONUT CHART */

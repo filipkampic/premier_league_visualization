@@ -4,6 +4,8 @@ import { drawLineChart } from "./charts/line.js";
 import { drawScatterPlot } from "./charts/scatter.js";
 import { drawDonutChart } from "./charts/donut.js";
 import { drawSpiderChart } from "./charts/spider.js";
+import { getTeamColor } from "./utils/teamColors.js";
+import { getTeamLogo } from "./utils/teamLogos.js";
 
 let globalData = [];
 let currentSeason = null;
@@ -75,12 +77,33 @@ function initTeamSelect(seasonData) {
         checkbox.value = team;
         checkbox.checked = defaults.includes(team);
 
-        checkbox.addEventListener("change", updateLineChart);
+        const colorDot = document.createElement("span");
+        colorDot.className = "team-color-dot";
+        colorDot.style.background = getTeamColor(team);
+        colorDot.style.opacity = checkbox.checked ? "1" : "0.25";
+
+        const logo = document.createElement("img");
+        logo.src = getTeamLogo(team) || "";
+        logo.width = 18;
+        logo.height = 18;
+        logo.style.objectFit = "contain";
+        logo.style.opacity = checkbox.checked ? "1" : "0.3";
 
         const label = document.createElement("span");
         label.textContent = team;
+        label.style.opacity = checkbox.checked ? "1" : "0.4";
+
+        checkbox.addEventListener("change", () => {
+            const active = checkbox.checked;
+            colorDot.style.opacity = active ? "1" : "0.25";
+            logo.style.opacity = active ? "1" : "0.3";
+            label.style.opacity = active ? "1" : "0.4";
+            updateLineChart();
+        });
 
         row.appendChild(checkbox);
+        row.appendChild(colorDot);
+        row.appendChild(logo);
         row.appendChild(label);
         container.appendChild(row);
     });
@@ -181,6 +204,11 @@ function initTeamButtons() {
 
         document.querySelectorAll("#team-list input[type='checkbox']").forEach(cb => {
             cb.checked = defaults.includes(cb.value);
+            const row = cb.parentElement;
+            const active = cb.checked;
+            row.querySelector(".team-color-dot").style.opacity = active ? "1" : "0.25";
+            row.querySelector("img").style.opacity = active ? "1" : "0.3";
+            row.querySelector("span:last-child").style.opacity = active ? "1" : "0.4";
         });
 
         updateLineChart();
@@ -189,6 +217,10 @@ function initTeamButtons() {
     document.getElementById("select-all-teams").addEventListener("click", () => {
         document.querySelectorAll("#team-list input[type='checkbox']").forEach(cb => {
             cb.checked = true;
+            const row = cb.parentElement;
+            row.querySelector(".team-color-dot").style.opacity = "1";
+            row.querySelector("img").style.opacity = "1";
+            row.querySelector("span:last-child").style.opacity = "1";
         });
 
         updateLineChart();
